@@ -26,7 +26,7 @@
     
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id jsonArray) {
         
-        for(NSDictionary *item in jsonArray) {            
+        for(NSDictionary *item in jsonArray) {
             if([jsonArray indexOfObject:item] == 0 ){
                 
                 //                [prefs setObject:[item objectForKey:@"NextMonthName"] forKey:@"NextMonthName"];
@@ -40,12 +40,9 @@
                 [self addEventWithRideName:[item objectForKey:@"RideName"] startDate:[item objectForKey:@"StartDate"]startTime:[item objectForKey:@"StartTime"] rideLocation:[item objectForKey:@"RideLocation"] rideDesc:[item objectForKey:@"RideDesc"] city:[item objectForKey:@"City"] state:[item objectForKey:@"State"]zip:[item objectForKey:@"Zip"] eventType:[item objectForKey:@"eventtype"] rideRoute:[item objectForKey:@"RideRoute"] registration:[item objectForKey:@"Registration"]  costs:[item objectForKey:@"Costs"]  distance:[item objectForKey:@"Distance"]  rideStartAddress:[item objectForKey:@"RideStartAddress"]  contactPerson:[item objectForKey:@"ContactPerson"]  email1:[item objectForKey:@"Email1"]  contactPhone:[item objectForKey:@"ContactPhone"]  numberRiders:[item objectForKey:@"noriders"]  terrain:[item objectForKey:@"terrain"]  riderType:[item objectForKey:@"ridertype"] host:[item objectForKey:@"Host"] rideId:[item objectForKey:@"RideID"]];
             }
             [eventTable reloadData];
-            NSLog(@"fuckshitballs");
         }
         
-        
     } failure:nil];
-    NSLog(@"assholecunt");
     [operation start];
 }
 
@@ -53,8 +50,9 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    eventList = [[NSMutableArray alloc]init];
     [self getEvents];
-                  [eventTable reloadData];
+    [eventTable reloadData];
 }
 
 - (void)didReceiveMemoryWarning
@@ -89,9 +87,9 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([[segue identifier] isEqualToString:@"showDetail"]) {
-//        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-//        NSDate *object = _objects[indexPath.row];
-//        [[segue destinationViewController] setDetailItem:object];
+        //        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+        //        NSDate *object = _objects[indexPath.row];
+        //        [[segue destinationViewController] setDetailItem:object];
     }
 }
 
