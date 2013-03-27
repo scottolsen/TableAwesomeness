@@ -12,5 +12,6 @@
 
 @property (nonatomic, copy) NSMutableArray *eventList;
 @property (strong, nonatomic) IBOutlet UITableView *eventTable;
+//@property (strong, nonatomic) IBOutlet UIRefreshControl *refreshControl;
 
 @end

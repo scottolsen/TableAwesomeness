@@ -20,7 +20,7 @@
 }
 
 - (void)getEvents
-{
+{        
     NSURL *url = [NSURL URLWithString:@"http://bikeiowa-api.heroku.com/events.json"];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     
@@ -44,11 +44,16 @@
         
     } failure:nil];
     [operation start];
+    [self.refreshControl endRefreshing];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(getEvents)
+             forControlEvents:UIControlEventValueChanged];
+    self.refreshControl = refreshControl;
 	// Do any additional setup after loading the view, typically from a nib.
     eventList = [[NSMutableArray alloc]init];
     [self getEvents];
