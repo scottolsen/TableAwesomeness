@@ -10,4 +10,7 @@
 
 @interface MasterViewController : UITableViewController
 
+@property (nonatomic, copy) NSMutableArray *eventList;
+@property (strong, nonatomic) IBOutlet UITableView *eventTable;
+
 @end
