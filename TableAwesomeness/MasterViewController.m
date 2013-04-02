@@ -8,7 +8,6 @@
 
 #import "MasterViewController.h"
 #import "DetailViewController.h"
-#import "AFJSONRequestOperation.h"
 #import "Event.h"
 
 @implementation MasterViewController
@@ -20,30 +19,20 @@
 }
 
 - (void)getEvents
-{        
-    NSURL *url = [NSURL URLWithString:@"http://bikeiowa-api.heroku.com/events.json"];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    
-    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id jsonArray) {
-        
+{
+    id successBlock = ^(NSURLRequest *request, NSURLResponse *response, id jsonArray) {
         for(NSDictionary *item in jsonArray) {
             if([jsonArray indexOfObject:item] == 0 ){
-                
-                //                [prefs setObject:[item objectForKey:@"NextMonthName"] forKey:@"NextMonthName"];
-                //                [prefs setObject:[item objectForKey:@"PreviousMonthName"] forKey:@"PreviousMonthName"];
-                //                [prefs setObject:[item objectForKey:@"PreviousMonthDate"] forKey:@"PreviousMonthDate"];
-                //                [prefs setObject:[item objectForKey:@"NextMonthDate"] forKey:@"NextMonthDate"];
-                //                [prefs setObject:[item objectForKey:@"FullMonthName"] forKey:@"FullMonthName"];
             }
             else{
-                //                NSLog(@"%@", [item objectForKey:@"RideDesc"]);
                 [self addEventWithRideName:[item objectForKey:@"RideName"] startDate:[item objectForKey:@"StartDate"]startTime:[item objectForKey:@"StartTime"] rideLocation:[item objectForKey:@"RideLocation"] rideDesc:[item objectForKey:@"RideDesc"] city:[item objectForKey:@"City"] state:[item objectForKey:@"State"]zip:[item objectForKey:@"Zip"] eventType:[item objectForKey:@"eventtype"] rideRoute:[item objectForKey:@"RideRoute"] registration:[item objectForKey:@"Registration"]  costs:[item objectForKey:@"Costs"]  distance:[item objectForKey:@"Distance"]  rideStartAddress:[item objectForKey:@"RideStartAddress"]  contactPerson:[item objectForKey:@"ContactPerson"]  email1:[item objectForKey:@"Email1"]  contactPhone:[item objectForKey:@"ContactPhone"]  numberRiders:[item objectForKey:@"noriders"]  terrain:[item objectForKey:@"terrain"]  riderType:[item objectForKey:@"ridertype"] host:[item objectForKey:@"Host"] rideId:[item objectForKey:@"RideID"]];
             }
+            
             [eventTable reloadData];
         }
-        
-    } failure:nil];
-    [operation start];
+    };
+    
+    [[Event alloc] getEventsWithSuccessBlock:successBlock failure:nil];       
     [self.refreshControl endRefreshing];
 }
 

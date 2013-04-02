@@ -38,5 +38,6 @@
 -(NSString*) getDescription;
 -(NSString*) getRoute;
 -(NSString*) getRegistration;
+-(void) getEventsWithSuccessBlock:(void (^)())successBlock failure:(void(^)())failure;
 
 @end

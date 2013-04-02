@@ -7,6 +7,7 @@
 //
 
 #import "Event.h"
+#import "AFJSONRequestOperation.h"
 
 @implementation Event
 @synthesize rideName = _rideName, startDate = _startDate, startTime = _startTime, rideLocation = _rideLocation, rideDesc = _rideDesc, city = _city, state = _state, zip = _zip, eventType = _eventType, rideRoute = _rideRoute, registration = _registration, costs = _costs, distance = _distance, rideStartAddress = _rideStartAddress, contactPerson = _contactPerson, email1 = _email1, contactPhone = _contactPhone, numberRiders = _numberRiders, terrain = _terrain, riderType = _riderType, host = _host, rideId = _rideId;
@@ -42,6 +43,15 @@
         return self;
     }
     return nil;
+}
+
+-(void) getEventsWithSuccessBlock:(void (^)())successBlock failure:(void(^)())failure
+{
+    NSURL *url = [NSURL URLWithString:@"http://bikeiowa-api.heroku.com/events.json"];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:successBlock failure:failure];
+    [operation start];
 }
 
 -(NSString*) getDescription {
